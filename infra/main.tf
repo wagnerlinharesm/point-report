@@ -70,5 +70,5 @@ resource "aws_lambda_permission" "allow_sqs_to_invoke_lambda" {
 resource "aws_lambda_event_source_mapping" "point_report_lambda_event_source_mapping" {
   event_source_arn = aws_sqs_queue.point_report_sqs_queue.arn
   function_name    = aws_lambda_function.point_report_lambda_function.function_name
-  batch_size       = 10
+  batch_size       = 1
 }
