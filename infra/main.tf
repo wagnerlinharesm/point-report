@@ -38,7 +38,7 @@ resource "aws_iam_role_policy_attachment" "point_report_sqs_iam_role_policy_atta
 }
 
 resource "aws_lambda_function" "point_report_lambda_function" {
-  function_name = "point_report_lambda_function"
+  function_name = "point_report"
   handler       = "app/lambda_function.handler"
   runtime       = "python3.11"
   role          = aws_iam_role.point_report_iam_role.arn
