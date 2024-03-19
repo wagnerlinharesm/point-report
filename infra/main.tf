@@ -32,6 +32,11 @@ resource "aws_iam_role" "point_report_iam_role" {
   assume_role_policy = file("policy/assume_role_policy.json")
 }
 
+resource "aws_iam_role_policy_attachment" "point_report_sqs_iam_role_policy_attachment" {
+  role       = aws_iam_role.point_report_iam_role.name
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaSQSQueueExecutionRole"
+}
+
 resource "aws_lambda_function" "point_report_lambda_function" {
   function_name = "point_report_lambda_function"
   handler       = "app/lambda_function.handler"
