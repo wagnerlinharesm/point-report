@@ -29,7 +29,7 @@ resource "aws_sqs_queue" "point_report_dlq_sqs_queue" {
 
 resource "aws_iam_role" "point_report_iam_role" {
   name               = "point_report_iam_role"
-  assume_role_policy = file("policy/assume_role_policy.json")
+  assume_role_policy = file("iam/policy/assume_role_policy.json")
 }
 
 resource "aws_iam_role_policy_attachment" "point_report_sqs_iam_role_policy_attachment" {
