@@ -21,10 +21,15 @@ class PointReportUseCase(metaclass=SingletonMeta):
     _point_report_generator = PointReportGenerator()
 
     def execute(self, username, month, year):
+        print("worker")
         worker = self.__find_worker(username)
+        print("points")
         points = self._point_adapter.find_all(worker.username, month, year)
+        print("report")
         report = self.__find_report(worker, points, month, year)
+        print("__send_report")
         self.__send_report(report, worker, month, year)
+        print("end")
 
     def __find_worker(self, username):
         worker = self._worker_adapter.find_one(username)
