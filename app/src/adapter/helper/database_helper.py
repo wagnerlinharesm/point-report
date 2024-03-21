@@ -8,7 +8,7 @@ class DatabaseHelper(metaclass=SingletonMeta):
 
     def __init__(self):
         self._connection = DatabaseHelper.__connect(
-            "rdsproxy.proxy-cqivfynnpqib.us-east-2.rds.amazonaws.com",
+            OsHelper.get_required_env("POINT_DB_HOST"),
             OsHelper.get_required_env("POINT_DB_DATABASE"),
             OsHelper.get_required_env("POINT_DB_USERNAME"),
             OsHelper.get_required_env("POINT_DB_PASSWORD")

@@ -10,7 +10,7 @@ variable "point_report_sqs_queue_name" {
 
 variable "point_db_host" {
   type    = string
-  default = "point-db.cqivfynnpqib.us-east-2.rds.amazonaws.com"
+  default = "rdsproxy.proxy-cqivfynnpqib.us-east-2.rds.amazonaws.com"
 }
 
 variable "point_db_database" {

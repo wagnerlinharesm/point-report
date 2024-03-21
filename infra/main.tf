@@ -74,6 +74,8 @@ resource "aws_lambda_function" "point_report_lambda_function" {
     security_group_ids = ["sg-01f81ec455ea45da9"]
   }
 
+  timeout = 10
+
   depends_on = [
     aws_iam_role.point_report_iam_role
   ]
