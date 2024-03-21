@@ -33,7 +33,7 @@ class PointReportGenerator(metaclass=SingletonMeta):
     def __build_head(title):
         head_template = """
             <head>
-                <meta charset="UTF-8">
+                <meta charset="iso-8859-1">
                 <meta name="viewport" content="width=device-width, initial-scale=1.0">
                 <title>$title</title>
                 <style>
@@ -48,7 +48,10 @@ class PointReportGenerator(metaclass=SingletonMeta):
                         text-align: left;
                     }
                     th {
-                        background-color: #f2f2f2;
+                        background-color: #838181;
+                    }
+                    .centered {
+                        text-align: center;
                     }
                 </style>
             </head>
@@ -89,24 +92,24 @@ class PointReportGenerator(metaclass=SingletonMeta):
             <table>
                 <thead>
                     <tr>
-                        <th colspan="3">Ponto</th>
+                        <th colspan="3" class="centered">Ponto</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td><b>Dia</b></td>
-                        <td><b>Situação</b></td>
-                        <td><b>Horas trabalhadas</b></td>
+                        <td class="centered"><b>Dia</b></td>
+                        <td class="centered"><b>Situação</b></td>
+                        <td class="centered"><b>Horas trabalhadas</b></td>
                     </tr>
                     <tr>
-                        <td><b>$date</b></td>
-                        <td><b>$situation</b></td>
-                        <td><b>$work_time</b></td>
+                        <td>$date</td>
+                        <td>$situation</td>
+                        <td>$work_time</td>
                     </tr>
                 </tbody>
                 <thead>
                     <tr>
-                        <th colspan="3">Períodos</th>
+                        <th colspan="3" class="centered">Períodos</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -128,9 +131,9 @@ class PointReportGenerator(metaclass=SingletonMeta):
     def __build_point_periods(point_periods):
         html_point_periods = """
             <tr>
-                <td><b>Entrada</b></td>
-                <td><b>Saida</b></td>
-                <td><b>Horas trabalhadas</b></td>
+                <td class="centered"><b>Entrada</b></td>
+                <td class="centered"><b>Saida</b></td>
+                <td class="centered"><b>Horas trabalhadas</b></td>
             </tr>
         """
 
