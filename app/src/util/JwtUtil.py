@@ -17,5 +17,10 @@ class JwtUtil:
             print("Error connecting to database.", e)
             raise Exception("Error decoding jwt token.", e)
 
-    def get_attribute(self, name):
-        return self._decoded_token.get(name)
+    def get_required_attribute(self, name):
+        value = self._decoded_token.get(name)
+
+        if value is None:
+            raise Exception("jwt token attribute '", name, "' is missing.")
+
+        return value

@@ -20,10 +20,9 @@ def handler(event, _):
 
 def get_username(event):
     jwt_token = get_jwt_token(event)
-    #jwt_util = JwtUtil(jwt_token)
-    #jwt_util.get_attribute("cognito:username")
+    jwt_util = JwtUtil(jwt_token)
 
-    return jwt_token
+    return jwt_util.get_required_attribute("cognito:username")
 
 
 def get_jwt_token(event):
