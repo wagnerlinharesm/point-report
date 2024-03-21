@@ -5,17 +5,16 @@ from app.src.util.JwtUtil import JwtUtil
 
 
 def handler(event, _):
-    print("begin")
+    current_month, current_year = get_date()
     username = get_username(event)
-    print(username)
-
-    current_date = datetime.now()
-    current_month = current_date.month
-    current_year = current_date.year
 
     point_report_use_case = PointReportUseCase()
     point_report_use_case.execute(username, current_month, current_year)
-    print("end")
+
+
+def get_date():
+    current_date = datetime.now()
+    return current_date.month, current_date.year
 
 
 def get_username(event):
