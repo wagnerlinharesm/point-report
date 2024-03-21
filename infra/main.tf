@@ -28,7 +28,7 @@ resource "aws_sqs_queue" "point_report_dlq_sqs_queue" {
 # -- lambda
 
 data "aws_secretsmanager_secret" "point_db_secretsmanager_secret" {
-  name = var.point_report_sqs_queue_name
+  name = var.point_db_secretsmanager_secret_name
 }
 
 data "aws_secretsmanager_secret_version" "point_db_secretsmanager_secret_version" {
