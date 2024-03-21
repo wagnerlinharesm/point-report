@@ -35,7 +35,7 @@ class DatabaseHelper(metaclass=SingletonMeta):
 
         except psycopg2.Error as e:
             print("Error connecting to database.", e)
-            raise Exception("Error connecting to database.")
+            raise Exception("Error connecting to database.", e)
 
     @staticmethod
     def __rows_to_dict(cursor, rows):
