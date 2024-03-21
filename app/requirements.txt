@@ -1,4 +1,2 @@
-bcrypt
-cryptography
 jwt
 psycopg2-binary
