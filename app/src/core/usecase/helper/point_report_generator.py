@@ -2,11 +2,11 @@ from string import Template
 from app.src.util.SingletonMeta import SingletonMeta
 
 class PointReportGenerator(metaclass=SingletonMeta):
-    def generate(self, points):
-        return PointReportGenerator.__build_html(points)
+    def generate(self, worker, points, month, year):
+        return PointReportGenerator.__build_html(worker, points, month, year)
 
     @staticmethod
-    def __build_html(points):
+    def __build_html(worker, points, month, year):
         html_template = """
             <!DOCTYPE html>
             <html lang="en">
@@ -14,6 +14,12 @@ class PointReportGenerator(metaclass=SingletonMeta):
             $body
             </html>
         """
+
+        title = Template("$username - $month/$year").substitute({
+            "username": worker.username,
+            "month": month,
+            "year": year
+        })
 
         head = PointReportGenerator.__build_head("title")
         body = PointReportGenerator.__build_body("title", points)
@@ -83,7 +89,24 @@ class PointReportGenerator(metaclass=SingletonMeta):
             <table>
                 <thead>
                     <tr>
-                        <th colspan="2">Table 2 Header</th>
+                        <th colspan="3">Ponto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><b>Dia</b></td>
+                        <td><b>Situação</b></td>
+                        <td><b>Horas trabalhadas</b></td>
+                    </tr>
+                    <tr>
+                        <td><b>$date</b></td>
+                        <td><b>$situation</b></td>
+                        <td><b>$work_time</b></td>
+                    </tr>
+                </tbody>
+                <thead>
+                    <tr>
+                        <th colspan="3">Períodos</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -95,12 +118,21 @@ class PointReportGenerator(metaclass=SingletonMeta):
         point_periods = PointReportGenerator.__build_point_periods(point.periods)
 
         return Template(element_template).substitute({
+            "date": point.date,
+            "situation": point.situation,
+            "work_time": point.work_time,
             "point_periods": point_periods
         })
 
     @staticmethod
     def __build_point_periods(point_periods):
-        html_point_periods = ""
+        html_point_periods = """
+            <tr>
+                <td><b>Entrada</b></td>
+                <td><b>Saida</b></td>
+                <td><b>Horas trabalhadas</b></td>
+            </tr>
+        """
 
         for point_period in point_periods:
             html_point_periods += PointReportGenerator.__build_point_period(point_period)

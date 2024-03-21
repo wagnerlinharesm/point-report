@@ -45,12 +45,12 @@ class PointAdapter(metaclass=SingletonMeta):
 
                 points.append(current_point)
 
-                period = PointPeriod(
-                    row_dict["hora_entrada"],
-                    row_dict["hora_saida"],
-                    row_dict["horas_periodo"]
-                )
+            period = PointPeriod(
+                row_dict["hora_entrada"],
+                row_dict["hora_saida"],
+                row_dict["horas_periodo"]
+            )
 
-                current_point.add_period(period)
+            current_point.add_period(period)
 
         return points

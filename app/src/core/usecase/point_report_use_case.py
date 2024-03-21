@@ -43,7 +43,7 @@ class PointReportUseCase(metaclass=SingletonMeta):
 
         report = self._storage_adapter.get_file(file_name)
         if report is None:
-            report = self._point_report_generator.generate(points)
+            report = self._point_report_generator.generate(worker, points, month, year)
             self._storage_adapter.save_file(file_name, report)
 
         return report
