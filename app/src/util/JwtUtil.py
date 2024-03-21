@@ -8,7 +8,7 @@ class JwtUtil:
     @staticmethod
     def __decode(jwt_token):
         try:
-            jwt.decode(
+            return jwt.decode(
                 jwt_token,
                 algorithms=['RS256'],
                 options={"verify_signature": False}
