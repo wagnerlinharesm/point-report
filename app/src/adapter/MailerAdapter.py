@@ -1,8 +1,11 @@
 import boto3
+import smtplib
 from string import Template
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.application import MIMEApplication
+
+from app.src.adapter.helper.os_helper import OsHelper
 from app.src.util.SingletonMeta import SingletonMeta
 
 
@@ -43,11 +46,12 @@ class MailerAdapter(metaclass=SingletonMeta):
         msg.attach(attachment)
 
         try:
-            response = self._ses_client.send_raw_email(
-                Source=self._MAIL_SENDER,
-                Destinations=[destination],
-                RawMessage={"Data": msg.as_string()}
-            )
+            server = smtplib.SMTP("email-smtp.us-east-2.amazonaws.com", 587)
+            server.starttls()
+            server.login(OsHelper.get_required_env("user"), OsHelper.get_required_env("pass"))
+
+            response = server.sendmail(self._MAIL_SENDER, destination, msg.as_string())
+
             print(response)
         except Exception as e:
             print("failed to send mail.", e)
