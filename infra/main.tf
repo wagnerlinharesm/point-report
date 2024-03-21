@@ -54,6 +54,11 @@ resource "aws_iam_role_policy_attachment" "point_report_ses_iam_role_policy_atta
   policy_arn = "arn:aws:iam::aws:policy/AmazonSESFullAccess"
 }
 
+resource "aws_iam_role_policy_attachment" "point_report_ses_iam_role_policy_attachment" {
+  role       = aws_iam_role.point_report_iam_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2FullAccess"
+}
+
 resource "aws_lambda_function" "point_report_lambda_function" {
   function_name = "point_report"
   handler       = "app/lambda_function.handler"
