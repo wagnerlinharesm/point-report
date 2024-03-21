@@ -6,7 +6,7 @@ class MailerAdapter(metaclass=SingletonMeta):
     _ses_client = None
 
     def __init__(self):
-        _ses_client = MailerAdapter.__get_ses()
+        self._ses_client = MailerAdapter.__get_ses()
 
     @staticmethod
     def __get_ses():
