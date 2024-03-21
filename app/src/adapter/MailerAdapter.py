@@ -11,7 +11,7 @@ class MailerAdapter(metaclass=SingletonMeta):
     @staticmethod
     def __get_ses():
         try:
-            boto3.client('ses')
+            return boto3.client('ses')
         except Exception as e:
             raise Exception("failed to get ses client.", e)
 
