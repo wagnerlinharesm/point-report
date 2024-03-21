@@ -32,7 +32,7 @@ data "aws_secretsmanager_secret" "point_db_secretsmanager_secret" {
 }
 
 data "aws_secretsmanager_secret_version" "point_db_secretsmanager_secret_version" {
-  secret_id = data.point_db_secretsmanager_secret.db_credentials.id
+  secret_id = data.aws_secretsmanager_secret.point_db_secretsmanager_secret.id
 }
 
 locals {
