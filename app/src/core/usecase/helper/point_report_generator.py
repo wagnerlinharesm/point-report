@@ -95,7 +95,7 @@ class PointReportGenerator(metaclass=SingletonMeta):
         point_periods = PointReportGenerator.__build_point_periods(point.periods)
 
         return Template(element_template).substitute({
-            "$point_periods": point_periods
+            "point_periods": point_periods
         })
 
     @staticmethod
@@ -118,7 +118,7 @@ class PointReportGenerator(metaclass=SingletonMeta):
         """
 
         return Template(point_period_template).substitute({
-            "$begin_time": point_period.begin_time,
-            "$end_time": point_period.end_time,
-            "$work_time": point_period.work_time
+            "begin_time": point_period.begin_time,
+            "end_time": point_period.end_time,
+            "work_time": point_period.work_time
         })
