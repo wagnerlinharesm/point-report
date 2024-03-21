@@ -21,6 +21,6 @@ class WorkerAdapter(metaclass=SingletonMeta):
             return None
 
         return Worker(
-            row_dict['id_funcionario'],
-            row_dict['email'],
+            row_dict["id_funcionario"],
+            row_dict["email"],
         )

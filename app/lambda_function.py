@@ -33,21 +33,21 @@ def get_jwt_token(event):
     elif len(split_authorization) == 2:
         return split_authorization[1]
 
-    raise Exception('invalid authorization.')
+    raise Exception("invalid authorization.")
 
 
 def get_body(event):
-    records = event.get('Records', [])
+    records = event.get("Records", [])
 
     if len(records) == 0:
-        raise Exception('missing record.')
+        raise Exception("missing record.")
 
     if len(records) > 1:
-        raise Exception('multiple records.')
+        raise Exception("multiple records.")
 
-    body = records[0].get('body')
+    body = records[0].get("body")
 
     if body is None:
-        raise Exception('missing body.')
+        raise Exception("missing body.")
 
     return body

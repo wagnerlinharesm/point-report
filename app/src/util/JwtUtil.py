@@ -10,7 +10,7 @@ class JwtUtil:
         try:
             return jwt.decode(
                 jwt_token,
-                algorithms=['RS256'],
+                algorithms=["RS256"],
                 options={"verify_signature": False}
             )
         except Exception as e:
