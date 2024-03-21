@@ -3,7 +3,7 @@ import jwt
 
 class JwtUtil:
     def __init__(self, jwt_token):
-        self._decoded_token = self.__decode(jwt_token)
+        self._decoded_token = JwtUtil.__decode(jwt_token)
 
     @staticmethod
     def __decode(jwt_token):

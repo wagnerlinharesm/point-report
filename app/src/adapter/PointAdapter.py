@@ -7,7 +7,7 @@ from app.src.core.domain.PointPeriod import PointPeriod
 class PointAdapter(metaclass=SingletonMeta):
     _db_helper = DatabaseHelper()
 
-    def find_month_points(self, worker, month, year):
+    def find_all(self, worker, month, year):
         query = """
             SELECT 
                 p."data",
