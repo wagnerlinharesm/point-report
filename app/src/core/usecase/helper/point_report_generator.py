@@ -21,8 +21,8 @@ class PointReportGenerator(metaclass=SingletonMeta):
             "year": year
         })
 
-        head = PointReportGenerator.__build_head("title")
-        body = PointReportGenerator.__build_body("title", points)
+        head = PointReportGenerator.__build_head(title)
+        body = PointReportGenerator.__build_body(title, points)
 
         return Template(html_template).substitute({
             "head": head,
@@ -51,7 +51,7 @@ class PointReportGenerator(metaclass=SingletonMeta):
                         background-color: #838181;
                     }
                     .centered {
-                        text-align: center;
+                        text-align: f2f2f2;
                     }
                 </style>
             </head>
