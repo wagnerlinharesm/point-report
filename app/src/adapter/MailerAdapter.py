@@ -32,7 +32,7 @@ class MailerAdapter(metaclass=SingletonMeta):
         # build message body
         msg_body = MIMEMultipart("alternative")
         plain_message = MIMEText(message, "plain")
-        html_message = MIMEText(self._HTML_MESSAGE_TEMPLATE.substitute({"$message": message}), "html")
+        html_message = MIMEText(self._HTML_MESSAGE_TEMPLATE.substitute({"message": message}), "html")
         msg_body.attach(plain_message)
         msg_body.attach(html_message)
         msg.attach(msg_body)

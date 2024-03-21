@@ -38,9 +38,9 @@ class PointReportUseCase(metaclass=SingletonMeta):
 
     def __find_report(self, worker, points, month, year):
         file_name = self._FILE_NAME_TEMPLATE.substitute({
-            "$year": year,
-            "$month": month,
-            "$username": worker.username
+            "year": year,
+            "month": month,
+            "username": worker.username
         })
 
         report = self._storage_adapter.get_file(file_name)
@@ -55,18 +55,18 @@ class PointReportUseCase(metaclass=SingletonMeta):
 
     def __send_report(self, report, worker, month, year):
         title = self._MAIL_TITLE_TEMPLATE.substitute({
-            "$month": month,
-            "$year": year,
+            "month": month,
+            "year": year,
         })
 
         message = self._MAIL_TEXT_TEMPLATE.substitute({
-            "$month": month,
-            "$year": year,
+            "month": month,
+            "year": year,
         })
 
         attachment_name = self._ATTACHMENT_NAME_TEMPLATE.substitute({
-            "$month": month,
-            "$year": year,
+            "month": month,
+            "year": year,
         })
 
         self._mailer_adapter.send(
