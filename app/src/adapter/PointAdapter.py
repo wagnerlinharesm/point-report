@@ -1,3 +1,4 @@
+from app.src.util.SingletonMeta import SingletonMeta
 from app.src.adapter.helper.database_helper import DatabaseHelper
 from app.src.core.domain.Point import Point
 from app.src.core.domain.PointPeriod import PointPeriod

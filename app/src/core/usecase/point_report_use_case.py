@@ -1,3 +1,4 @@
+from app.src.util.SingletonMeta import SingletonMeta
 from app.src.adapter.PointAdapter import PointAdapter
 
 
