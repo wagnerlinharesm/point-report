@@ -14,7 +14,7 @@ class PointReportUseCase(metaclass=SingletonMeta):
         points = self._point_adapter.find_all(worker.username, month, year)
 
         self._mailer_adapter.send(
-            "test@test.com",
+            "rm349538@fiap.com.br",
             worker.mail,
             "title",
             "body :)"
