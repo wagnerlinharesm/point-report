@@ -15,7 +15,7 @@ class WorkerAdapter(metaclass=SingletonMeta):
             where id_funcionario = %s
         """
 
-        row_dict = self._db_helper.fetch_one(query, (username))
+        row_dict = self._db_helper.fetch_one(query, (username,))
 
         if row_dict is None:
             return None
