@@ -27,6 +27,18 @@ resource "aws_sqs_queue" "point_report_dlq_sqs_queue" {
 
 # -- lambda
 
+data "aws_secretsmanager_secret" "point_db_secretsmanager_secret" {
+  name = var.point_db_secretsmanager_secret
+}
+
+data "aws_secretsmanager_secret_version" "point_db_secretsmanager_secret_version" {
+  secret_id = data.point_db_secretsmanager_secret.db_credentials.id
+}
+
+locals {
+  point_db_credentials = jsondecode(data.aws_secretsmanager_secret_version.point_db_secretsmanager_secret_version.secret_string)
+}
+
 resource "aws_iam_role" "point_report_iam_role" {
   name               = "point_report_iam_role"
   assume_role_policy = file("iam/policy/assume_role_policy.json")
@@ -53,6 +65,10 @@ resource "aws_lambda_function" "point_report_lambda_function" {
 
   environment {
     variables = {
+        POINT_DB_HOST       = var.point_db_host,
+        POINT_DB_DATABASE   = var.point_db_database,
+        POINT_DB_USERNAME   = local.point_db_credentials["username"]
+        POINT_DB_PASSWORD   = local.point_db_credentials["password"]
     }
   }
 }
