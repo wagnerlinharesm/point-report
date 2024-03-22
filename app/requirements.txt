@@ -3,3 +3,4 @@ secure-smtplib
 pyjwt
 psycopg2-binary
 reportlab
+pdfkit

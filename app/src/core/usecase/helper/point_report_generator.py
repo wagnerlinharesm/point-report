@@ -1,10 +1,13 @@
+import pdfkit
+
 from string import Template
 
 
 class PointReportGenerator:
     @staticmethod
     def generate(worker, points, month, year):
-        return PointReportGenerator.__build_html(worker, points, month, year)
+        html_content = PointReportGenerator.__build_html(worker, points, month, year)
+        return PointReportGenerator.__generate_pdf(html_content)
 
     @staticmethod
     def __build_html(worker, points, month, year):
@@ -170,3 +173,24 @@ class PointReportGenerator:
             "end_time": point_period.end_time,
             "work_time": point_period.work_time
         })
+
+    @staticmethod
+    def __generate_pdf(html_content):
+        options = {
+            'page-size': 'A4',
+            'margin-top': '0.75in',
+            'margin-right': '0.75in',
+            'margin-bottom': '0.75in',
+            'margin-left': '0.75in',
+            'encoding': "UTF-8",
+            'custom-header': [
+                ('Accept-Encoding', 'gzip')
+            ],
+            'no-outline': None
+        }
+
+        output_path = "/report/report.pdf"
+
+        pdfkit.from_string(html_content, output_path, options=options)
+
+        return output_path
