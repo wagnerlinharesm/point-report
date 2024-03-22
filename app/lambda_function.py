@@ -5,6 +5,7 @@ from app.src.util.JwtUtil import JwtUtil
 
 
 def handler(event, _):
+    print(event)
     current_month, current_year = get_date()
     username = get_username(event)
 
