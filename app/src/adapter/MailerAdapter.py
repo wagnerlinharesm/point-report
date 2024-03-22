@@ -23,7 +23,7 @@ class MailerAdapter(metaclass=SingletonMeta):
     @staticmethod
     def __get_smtp_client(host, port, username, password):
         try:
-            smtp_client = smtplib.SMTP(host, port)
+            smtp_client = smtplib.SMTP(host, port, timeout=10)
             smtp_client.starttls()
             smtp_client.login(username, password)
 
