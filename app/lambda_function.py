@@ -40,6 +40,6 @@ def get_jwt_token(event):
 
 
 def get_message_attribute(event, name):
-    message = json.loads(event.get("Records", [])[0].get("body"))
-    b64attribute = message[name]
-    return base64.b64decode(b64attribute)
+    message = json.loads(event.get("Records")[0].get("body"))
+    b64_attribute = message[name]
+    return base64.b64decode(b64_attribute)
