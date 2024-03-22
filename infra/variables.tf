@@ -48,4 +48,7 @@ variable "report_point_bucket_name" {
   default = "cached-point-report-bucket-644237782704"
 }
 
-
+variable "boto3_credentials_secretsmanager_secret_name" {
+  type    = string
+  default = "boto3"
+}

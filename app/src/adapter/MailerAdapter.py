@@ -29,7 +29,7 @@ class MailerAdapter(metaclass=SingletonMeta):
 
             return smtp_client
         except Exception as e:
-            raise Exception("failed to get ses client.", e)
+            raise Exception("failed to get smtp_client client.", e)
 
     def send(self, destination, subject, message, attachment_name, attachment_data):
         msg = MIMEMultipart("mixed")

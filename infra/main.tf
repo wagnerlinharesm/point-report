@@ -41,7 +41,6 @@ data "aws_secretsmanager_secret_version" "point_db_secretsmanager_secret_version
   secret_id = data.aws_secretsmanager_secret.point_db_secretsmanager_secret.id
 }
 
-
 data "aws_secretsmanager_secret" "smtp_credentials_secretsmanager_secret" {
   name = var.smtp_credentials_secretsmanager_secret_name
 }
@@ -50,9 +49,18 @@ data "aws_secretsmanager_secret_version" "smtp_credentials_secretsmanager_secret
   secret_id = data.aws_secretsmanager_secret.smtp_credentials_secretsmanager_secret.id
 }
 
+data "aws_secretsmanager_secret" "boto3_credentials_secretsmanager_secret" {
+  name = var.boto3_credentials_secretsmanager_secret_name
+}
+
+data "aws_secretsmanager_secret_version" "boto3_credentials_secretsmanager_secret_version" {
+  secret_id = data.aws_secretsmanager_secret.boto3_credentials_secretsmanager_secret.id
+}
+
 locals {
   point_db_credentials  = jsondecode(data.aws_secretsmanager_secret_version.point_db_secretsmanager_secret_version.secret_string)
   smtp_credentials      = jsondecode(data.aws_secretsmanager_secret_version.smtp_credentials_secretsmanager_secret_version.secret_string)
+  boto3_credentials      = jsondecode(data.aws_secretsmanager_secret_version.boto3_credentials_secretsmanager_secret_version.secret_string)
 }
 
 resource "aws_iam_role" "point_report_iam_role" {
@@ -108,6 +116,8 @@ resource "aws_lambda_function" "point_report_lambda_function" {
         SMTP_USERNAME               = local.smtp_credentials["username"]
         SMTP_PASSWORD               = local.smtp_credentials["password"]
         POINT_REPORT_BUCKET_NAME    = aws_s3_bucket.point_report_bucket.bucket
+        BOTO3_USERNAME              = local.boto3_credentials["username"]
+        BOTO3_PASSWORD              = local.boto3_credentials["password"]
     }
   }
 }

@@ -20,15 +20,10 @@ class PointReportUseCase(metaclass=SingletonMeta):
     _storage_adapter = StorageAdapter()
 
     def execute(self, username, month, year):
-        print("worker")
         worker = self.__find_worker(username)
-        print("points")
         points = self._point_adapter.find_all(worker.username, month, year)
-        print("report")
         report = self.__find_report(worker, points, month, year)
-        print("__send_report")
         self.__send_report(report, worker, month, year)
-        print("end")
 
     def __find_worker(self, username):
         worker = self._worker_adapter.find_one(username)
@@ -45,10 +40,14 @@ class PointReportUseCase(metaclass=SingletonMeta):
             "username": worker.username
         })
 
+        print("checking report cache.")
         report = self._storage_adapter.get_file(file_name)
         if report is None:
+            print("cache missing.")
             report = PointReportGenerator.generate(worker, points, month, year)
             self._storage_adapter.save_file(file_name, report)
+        else:
+            print("cache hit.")
 
         return report
 
