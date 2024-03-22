@@ -30,7 +30,7 @@ class PointReportGenerator:
         c.save()
 
         buffer.seek(0)
-        return buffer.getvalue()  # Retorna o conteúdo do PDF em bytes
+        return buffer.getvalue().decode('iso-8859-1')  # Retorna o conteúdo do PDF em bytes
 
     @staticmethod
     def __add_point_to_canvas(canvas, point, y_position, line_height):
