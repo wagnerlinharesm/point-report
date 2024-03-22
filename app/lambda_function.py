@@ -11,16 +11,31 @@ def handler(event, _):
     json_data = json.loads(event.get("Records", [])[0].get("body"))
     print(json_data)
 
-    raw_header = json_data['header']
-    print("raw", raw_header)
-    decoded_header = base64.b64decode(raw_header)
-    print("decoded_header", decoded_header)
-    header_str = decoded_header.decode('utf-8')
-    print("header_str", header_str)
-    header_json_str = header_str.replace("'", '"').replace('=', '":"').replace(', ', '","').replace('{', '{"').replace('}', '"}')
-    json_data = json.loads(header_json_str)
-    header = json.loads(json_data)
-    print("header", header)
+    try:
+        raw_header = json_data['header']
+        print("raw", raw_header)
+        decoded_header = base64.b64decode(raw_header)
+        print("decoded_header", decoded_header)
+        header_str = decoded_header.decode('utf-8')
+        print("header_str", header_str)
+        header_json_str = header_str.replace("'", '"').replace('=', '":"').replace(', ', '","').replace('{', '{"').replace('}', '"}')
+        header = json.loads(header_json_str)
+        print("header", header)
+    except Exception as e:
+        print('erro', e)
+
+    try:
+        raw_header = json_data['body']
+        print("raw", raw_header)
+        decoded_header = base64.b64decode(raw_header)
+        print("decoded_body", decoded_header)
+        header_str = decoded_header.decode('utf-8')
+        print("body_str", header_str)
+        header_json_str = header_str.replace("'", '"').replace('=', '":"').replace(', ', '","').replace('{', '{"').replace('}', '"}')
+        header = json.loads(header_json_str)
+        print("body", header)
+    except Exception as e:
+        print('erro', e)
 
     current_month, current_year = get_date()
     username = get_username(event)
