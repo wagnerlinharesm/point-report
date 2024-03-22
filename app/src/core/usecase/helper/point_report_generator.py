@@ -1,10 +1,13 @@
 from string import Template
-from app.src.util.SingletonMeta import SingletonMeta
+
+from app.src.util.PdfUtil import PdfUtil
 
 
-class PointReportGenerator(metaclass=SingletonMeta):
-    def generate(self, worker, points, month, year):
-        return PointReportGenerator.__build_html(worker, points, month, year)
+class PointReportGenerator:
+    @staticmethod
+    def generate(worker, points, month, year):
+        html = PointReportGenerator.__build_html(worker, points, month, year)
+        return PdfUtil.html_to_pdf(html)
 
     @staticmethod
     def __build_html(worker, points, month, year):
@@ -61,10 +64,10 @@ class PointReportGenerator(metaclass=SingletonMeta):
                         text-align: center;
                     }
                     .point {
-                        background-color: #d2d2d2;
+                        background-color: #b2b2b2;
                     }
                     .period {
-                        background-color: #f2f2f2;
+                        background-color: #e2e2e2;
                     }
                 </style>
             </head>

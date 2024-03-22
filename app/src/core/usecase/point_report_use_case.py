@@ -11,14 +11,13 @@ from app.src.core.usecase.helper.point_report_generator import PointReportGenera
 class PointReportUseCase(metaclass=SingletonMeta):
     _MAIL_TITLE_TEMPLATE = Template("Ponto Eletrônico - Report $month/$year")
     _MAIL_TEXT_TEMPLATE = Template("Segue em anexo report de ponto eletrônico p/ o período de $month/$year.")
-    _FILE_NAME_TEMPLATE = Template("$year/$month/$username.html")
-    _ATTACHMENT_NAME_TEMPLATE = Template("ponto-eletronico-report-$month-$year.html")
+    _FILE_NAME_TEMPLATE = Template("$year/$month/$username.pdf")
+    _ATTACHMENT_NAME_TEMPLATE = Template("ponto-eletronico-report-$month-$year.pdf")
 
     _worker_adapter = WorkerAdapter()
     _point_adapter = PointAdapter()
     _mailer_adapter = MailerAdapter()
     _storage_adapter = StorageAdapter()
-    _point_report_generator = PointReportGenerator()
 
     def execute(self, username, month, year):
         print("worker")
@@ -48,7 +47,7 @@ class PointReportUseCase(metaclass=SingletonMeta):
 
         report = self._storage_adapter.get_file(file_name)
         if report is None:
-            report = self._point_report_generator.generate(worker, points, month, year)
+            report = PointReportGenerator.generate(worker, points, month, year)
             self._storage_adapter.save_file(file_name, report)
 
         return report

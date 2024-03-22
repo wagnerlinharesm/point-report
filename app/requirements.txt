@@ -1,4 +1,5 @@
 boto3
+pdfkit
 secure-smtplib
 pyjwt
 psycopg2-binary
