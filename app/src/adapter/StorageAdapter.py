@@ -40,5 +40,5 @@ class StorageAdapter(metaclass=SingletonMeta):
         return data
 
     def save_file(self, file_name, data):
-        bytes_data = BytesIO(data)
+        bytes_data = BytesIO(data.encode('iso-8859-1'))
         self.s3_client.upload_fileobj(bytes_data, self.bucket_name, file_name)
