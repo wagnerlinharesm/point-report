@@ -19,6 +19,7 @@ def handler(event, _):
         header_str = decoded_header.decode('utf-8')
         print("header_str", header_str)
         header_json_str = header_str.replace("'", '"').replace('=', '":"').replace(', ', '","').replace('{', '{"').replace('}', '"}')
+        print("header_json_str", header_json_str)
         header = json.loads(header_json_str)
         print("header", header)
     except Exception as e:
@@ -31,8 +32,7 @@ def handler(event, _):
         print("decoded_body", decoded_header)
         header_str = decoded_header.decode('utf-8')
         print("body_str", header_str)
-        header_json_str = header_str.replace("'", '"').replace('=', '":"').replace(', ', '","').replace('{', '{"').replace('}', '"}')
-        header = json.loads(header_json_str)
+        header = json.loads(header_str)
         print("body", header)
     except Exception as e:
         print('erro', e)
