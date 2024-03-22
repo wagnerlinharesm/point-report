@@ -1,6 +1,7 @@
 from string import Template
 from app.src.util.SingletonMeta import SingletonMeta
 
+
 class PointReportGenerator(metaclass=SingletonMeta):
     def generate(self, worker, points, month, year):
         return PointReportGenerator.__build_html(worker, points, month, year)
@@ -15,7 +16,7 @@ class PointReportGenerator(metaclass=SingletonMeta):
             </html>
         """
 
-        title = Template("$username - $month/$year").substitute({
+        title = Template("Funcionário: $username - Mês/Ano: $month/$year").substitute({
             "username": worker.username,
             "month": month,
             "year": year
@@ -47,11 +48,23 @@ class PointReportGenerator(metaclass=SingletonMeta):
                         padding: 8px;
                         text-align: left;
                     }
-                    th {
-                        background-color: #f2f2f2;
+                    td:nth-child(1) {
+                        width: 33%;
+                    }
+                    td:nth-child(2) {
+                        width: 34%;
+                    }
+                    td:nth-child(3) {
+                        width: 33%;
                     }
                     .centered {
                         text-align: center;
+                    }
+                    .point {
+                        background-color: #d2d2d2;
+                    }
+                    .period {
+                        background-color: #f2f2f2;
                     }
                 </style>
             </head>
@@ -92,7 +105,7 @@ class PointReportGenerator(metaclass=SingletonMeta):
             <table>
                 <thead>
                     <tr>
-                        <th colspan="3" class="centered">Ponto</th>
+                        <th colspan="3" class="centered point">Ponto</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -109,7 +122,7 @@ class PointReportGenerator(metaclass=SingletonMeta):
                 </tbody>
                 <thead>
                     <tr>
-                        <th colspan="3" class="centered">Períodos</th>
+                        <th colspan="3" class="centered period">Períodos</th>
                     </tr>
                 </thead>
                 <tbody>
