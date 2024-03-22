@@ -1,7 +1,6 @@
-from io import BytesIO
-
 import boto3
-
+from botocore.exceptions import ClientError
+from io import BytesIO
 from app.src.adapter.helper.os_helper import OsHelper
 from app.src.util.SingletonMeta import SingletonMeta
 
@@ -28,7 +27,12 @@ class StorageAdapter(metaclass=SingletonMeta):
 
     def get_file(self, file_name):
         bytes_data = BytesIO()
-        self.s3_client.download_fileobj(self.bucket_name, file_name, bytes_data)
+
+        try:
+            self.s3_client.download_fileobj(self.bucket_name, file_name, bytes_data)
+        except ClientError as e:
+            if e.response['Error']['Code'] == '404':
+                return None
 
         bytes_data.seek(0)
         data = bytes_data.read()
