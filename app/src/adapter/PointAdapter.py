@@ -24,7 +24,7 @@ class PointAdapter(metaclass=SingletonMeta):
             WHERE EXTRACT(MONTH FROM p.data) = %s
             AND EXTRACT(YEAR FROM p.data) = %s
             AND p.id_funcionario = %s
-            ORDER BY p.data ASC
+            ORDER BY p.data ASC, pp.hora_entrada ASC
         """
 
         rows_dict = self._db_helper.fetch_all(query, (month, year, worker))
