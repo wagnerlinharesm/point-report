@@ -46,7 +46,7 @@ data "aws_secretsmanager_secret_version" "smtp_credentials_secretsmanager_secret
 
 locals {
   point_db_credentials  = jsondecode(data.aws_secretsmanager_secret_version.point_db_secretsmanager_secret_version.secret_string)
-  smtp_credentials      = jsondecode(data.aws_secretsmanager_secret_version.smtp_credentials_secretsmanager_secret.secret_string)
+  smtp_credentials      = jsondecode(data.aws_secretsmanager_secret_version.smtp_credentials_secretsmanager_secret_version.secret_string)
 }
 
 resource "aws_iam_role" "point_report_iam_role" {
