@@ -1,11 +1,14 @@
+import json
 from datetime import datetime
-
 from app.src.core.usecase.point_report_use_case import PointReportUseCase
 from app.src.util.JwtUtil import JwtUtil
 
 
 def handler(event, _):
     print(event)
+    json_data = json.loads(event.get("Records", [])[0].get("body"))
+    print(json_data)
+
     current_month, current_year = get_date()
     username = get_username(event)
 
