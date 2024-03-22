@@ -12,20 +12,17 @@ class MailerAdapter(metaclass=SingletonMeta):
     _HTML_MESSAGE_TEMPLATE = Template("<html><body><p>$message</p></body></html>")
 
     def __init__(self):
-        self._smtp_client = MailerAdapter.__get_smtp_client(
-            OsHelper.get_required_env("SMTP_HOST"),
-            OsHelper.get_required_env("SMTP_PORT"),
-            OsHelper.get_required_env("SMTP_USERNAME"),
-            OsHelper.get_required_env("SMTP_PASSWORD")
-        )
+        self.host = OsHelper.get_required_env("SMTP_HOST")
+        self.port = OsHelper.get_required_env("SMTP_PORT")
+        self.username = OsHelper.get_required_env("SMTP_USERNAME")
+        self.password = OsHelper.get_required_env("SMTP_PASSWORD")
         self._mail_sender = OsHelper.get_required_env("MAIL_SENDER")
 
-    @staticmethod
-    def __get_smtp_client(host, port, username, password):
+    def __create_smtp_client(self):
         try:
-            smtp_client = smtplib.SMTP(host, port, timeout=10)
+            smtp_client = smtplib.SMTP(self.host, self.port)
             smtp_client.starttls()
-            smtp_client.login(username, password)
+            smtp_client.login(self.username, self.password)
 
             return smtp_client
         except Exception as e:
@@ -49,7 +46,7 @@ class MailerAdapter(metaclass=SingletonMeta):
         msg.attach(attachment)
 
         try:
-            self._smtp_client.sendmail(self._mail_sender, destination, msg.as_string())
+            self.__create_smtp_client().sendmail(self._mail_sender, destination, msg.as_string())
 
         except Exception as e:
             print("failed to send mail.", e)
