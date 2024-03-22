@@ -12,18 +12,20 @@ class MailerAdapter(metaclass=SingletonMeta):
     _HTML_MESSAGE_TEMPLATE = Template("<html><body><p>$message</p></body></html>")
 
     def __init__(self):
-        self._smtp_client = MailerAdapter.__get_smtp_client()
-        self._mail_sender = OsHelper.get_required_env("POINT_DB_HOST")
+        self._smtp_client = MailerAdapter.__get_smtp_client(
+            OsHelper.get_required_env("SMTP_HOST"),
+            OsHelper.get_required_env("SMTP_PORT"),
+            OsHelper.get_required_env("SMTP_USERNAME"),
+            OsHelper.get_required_env("SMTP_PASSWORD")
+        )
+        self._mail_sender = OsHelper.get_required_env("MAIL_SENDER")
 
     @staticmethod
-    def __get_smtp_client():
+    def __get_smtp_client(host, port, username, password):
         try:
-            smtp_client = smtplib.SMTP("email-smtp.us-east-2.amazonaws.com", 587)
+            smtp_client = smtplib.SMTP(host, port)
             smtp_client.starttls()
-            smtp_client.login(
-                OsHelper.get_required_env("SMTP_USERNAME"),
-                OsHelper.get_required_env("SMTP_PASSWORD")
-            )
+            smtp_client.login(username, password)
 
             return smtp_client
         except Exception as e:
