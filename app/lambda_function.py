@@ -1,4 +1,6 @@
 import json
+import base64
+
 from datetime import datetime
 from app.src.core.usecase.point_report_use_case import PointReportUseCase
 from app.src.util.JwtUtil import JwtUtil
@@ -8,6 +10,15 @@ def handler(event, _):
     print(event)
     json_data = json.loads(event.get("Records", [])[0].get("body"))
     print(json_data)
+
+    raw_header = json_data['header']
+    print(raw_header)
+    decoded_header = base64.b64decode(raw_header)
+    print(decoded_header)
+    header_str = decoded_header.decode('utf-8')
+    print(header_str)
+    header = json.loads(header_str)
+    print(header)
 
     current_month, current_year = get_date()
     username = get_username(event)
