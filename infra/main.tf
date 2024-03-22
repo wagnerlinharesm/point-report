@@ -25,6 +25,12 @@ resource "aws_sqs_queue" "point_report_dlq_sqs_queue" {
   visibility_timeout_seconds = 30
 }
 
+# -- bucket
+
+resource "aws_s3_bucket" "point_report_bucket" {
+  bucket = var.report_point_bucket_name
+}
+
 # -- lambda
 
 data "aws_secretsmanager_secret" "point_db_secretsmanager_secret" {
@@ -101,6 +107,7 @@ resource "aws_lambda_function" "point_report_lambda_function" {
         SMTP_PORT           = var.smtp_port
         SMTP_USERNAME       = local.smtp_credentials["username"]
         SMTP_PASSWORD       = local.smtp_credentials["password"]
+        BUCKET_NAME         = aws_s3_bucket.point_report_bucket.bucket
     }
   }
 }

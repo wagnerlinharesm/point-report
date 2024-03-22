@@ -1,5 +1,4 @@
 boto3
-weasyprint
 secure-smtplib
 pyjwt
 psycopg2-binary

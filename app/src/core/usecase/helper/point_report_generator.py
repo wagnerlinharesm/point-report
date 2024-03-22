@@ -1,13 +1,10 @@
 from string import Template
 
-from app.src.util.PdfUtil import PdfUtil
-
 
 class PointReportGenerator:
     @staticmethod
     def generate(worker, points, month, year):
-        html = PointReportGenerator.__build_html(worker, points, month, year)
-        return PdfUtil.html_to_pdf(html)
+        return PointReportGenerator.__build_html(worker, points, month, year)
 
     @staticmethod
     def __build_html(worker, points, month, year):
@@ -43,7 +40,7 @@ class PointReportGenerator:
                 <style>
                     table {
                         border-collapse: collapse;
-                        width: 50%;
+                        width: 100%;
                         margin-bottom: 20px;
                     }
                     th, td {
