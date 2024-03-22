@@ -44,7 +44,7 @@ class PointReportUseCase(metaclass=SingletonMeta):
         report = self._storage_adapter.get_file(file_name)
         if report is None:
             print("cache missing.")
-            report = PointReportGenerator.generate(worker, points, month, year)
+            report = PointReportGenerator.generate_pdf(worker, points, month, year)
             self._storage_adapter.save_file(file_name, report)
         else:
             print("cache hit.")

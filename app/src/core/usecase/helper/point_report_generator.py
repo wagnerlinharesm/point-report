@@ -1,7 +1,26 @@
 from string import Template
+from weasyprint import HTML
+import tempfile
 
 
 class PointReportGenerator:
+
+    @staticmethod
+    def generate_pdf(worker, points, month, year):
+        html_content = PointReportGenerator.generate(worker, points, month, year)
+
+        return PointReportGenerator.__html_to_pdf(html_content)
+
+    @staticmethod
+    def __html_to_pdf(html_content):
+        with tempfile.NamedTemporaryFile(suffix=".pdf") as tmp_pdf:
+            HTML(string=html_content).write_pdf(tmp_pdf.name)
+
+            tmp_pdf.seek(0)
+            pdf_content = tmp_pdf.read()
+
+            return pdf_content
+
     @staticmethod
     def generate(worker, points, month, year):
         return PointReportGenerator.__build_html(worker, points, month, year)
