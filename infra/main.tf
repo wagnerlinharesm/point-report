@@ -6,7 +6,6 @@ provider "aws" {
 
 resource "aws_sqs_queue" "point_report_sqs_queue" {
   name                          = "${var.point_report_sqs_queue_name}.fifo"
-  delay_seconds                 = 0
   max_message_size              = 262144
   message_retention_seconds     = 259200
   visibility_timeout_seconds    = 30
