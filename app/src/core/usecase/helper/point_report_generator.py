@@ -48,10 +48,10 @@ class PointReportGenerator(metaclass=SingletonMeta):
                         text-align: left;
                     }
                     th {
-                        background-color: #838181;
+                        background-color: #f2f2f2;
                     }
                     .centered {
-                        text-align: f2f2f2;
+                        text-align: center;
                     }
                 </style>
             </head>

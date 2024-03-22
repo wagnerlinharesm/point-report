@@ -22,3 +22,23 @@ variable "point_db_secretsmanager_secret_name" {
   type    = string
   default = "mikes/db/db_credentials"
 }
+
+variable "mail_sender" {
+  type    = string
+  default = "rm349538@fiap.com.br"
+}
+
+variable "smtp_host" {
+  type    = string
+  default = "email-smtp.us-east-2.amazonaws.com"
+}
+
+variable "smtp_port" {
+  type    = number
+  default = 587
+}
+
+variable "smtp_credentials_secretsmanager_secret_name" {
+  type    = string
+  default = "smtp"
+}

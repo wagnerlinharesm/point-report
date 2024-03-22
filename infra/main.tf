@@ -35,8 +35,18 @@ data "aws_secretsmanager_secret_version" "point_db_secretsmanager_secret_version
   secret_id = data.aws_secretsmanager_secret.point_db_secretsmanager_secret.id
 }
 
+
+data "aws_secretsmanager_secret" "smtp_credentials_secretsmanager_secret" {
+  name = var.smtp_credentials_secretsmanager_secret_name
+}
+
+data "aws_secretsmanager_secret_version" "smtp_credentials_secretsmanager_secret_version" {
+  secret_id = data.aws_secretsmanager_secret.smtp_credentials_secretsmanager_secret.id
+}
+
 locals {
-  point_db_credentials = jsondecode(data.aws_secretsmanager_secret_version.point_db_secretsmanager_secret_version.secret_string)
+  point_db_credentials  = jsondecode(data.aws_secretsmanager_secret_version.point_db_secretsmanager_secret_version.secret_string)
+  smtp_credentials      = jsondecode(data.aws_secretsmanager_secret_version.smtp_credentials_secretsmanager_secret.secret_string)
 }
 
 resource "aws_iam_role" "point_report_iam_role" {
@@ -86,6 +96,11 @@ resource "aws_lambda_function" "point_report_lambda_function" {
         POINT_DB_DATABASE   = var.point_db_database,
         POINT_DB_USERNAME   = local.point_db_credentials["username"]
         POINT_DB_PASSWORD   = local.point_db_credentials["password"]
+        MAIL_SENDER         = var.mail_sender
+        SMTP_HOST           = var.smtp_host
+        SMTP_PORT           = var.smtp_port
+        SMTP_USERNAME       = local.smtp_credentials["username"]
+        SMTP_PASSWORD       = local.smtp_credentials["password"]
     }
   }
 }
