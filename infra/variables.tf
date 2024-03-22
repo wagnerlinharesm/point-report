@@ -45,7 +45,7 @@ variable "smtp_credentials_secretsmanager_secret_name" {
 
 variable "report_point_bucket_name" {
   type    = string
-  default = "cached_point_report_bucket_644237782704"
+  default = "cached-point-report-bucket-644237782704"
 }
 
 

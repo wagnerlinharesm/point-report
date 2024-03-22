@@ -98,16 +98,16 @@ resource "aws_lambda_function" "point_report_lambda_function" {
 
   environment {
     variables = {
-        POINT_DB_HOST       = var.point_db_host,
-        POINT_DB_DATABASE   = var.point_db_database,
-        POINT_DB_USERNAME   = local.point_db_credentials["username"]
-        POINT_DB_PASSWORD   = local.point_db_credentials["password"]
-        MAIL_SENDER         = var.mail_sender
-        SMTP_HOST           = var.smtp_host
-        SMTP_PORT           = var.smtp_port
-        SMTP_USERNAME       = local.smtp_credentials["username"]
-        SMTP_PASSWORD       = local.smtp_credentials["password"]
-        BUCKET_NAME         = aws_s3_bucket.point_report_bucket.bucket
+        POINT_DB_HOST               = var.point_db_host,
+        POINT_DB_DATABASE           = var.point_db_database,
+        POINT_DB_USERNAME           = local.point_db_credentials["username"]
+        POINT_DB_PASSWORD           = local.point_db_credentials["password"]
+        MAIL_SENDER                 = var.mail_sender
+        SMTP_HOST                   = var.smtp_host
+        SMTP_PORT                   = var.smtp_port
+        SMTP_USERNAME               = local.smtp_credentials["username"]
+        SMTP_PASSWORD               = local.smtp_credentials["password"]
+        POINT_REPORT_BUCKET_NAME    = aws_s3_bucket.point_report_bucket.bucket
     }
   }
 }
