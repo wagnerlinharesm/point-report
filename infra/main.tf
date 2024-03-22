@@ -5,24 +5,28 @@ provider "aws" {
 # -- queue
 
 resource "aws_sqs_queue" "point_report_sqs_queue" {
-  name                      = var.point_report_sqs_queue_name
-  delay_seconds             = 0
-  max_message_size          = 262144
-  message_retention_seconds = 259200
-  visibility_timeout_seconds = 30
+  name                          = "${var.point_report_sqs_queue_name}.fifo"
+  delay_seconds                 = 0
+  max_message_size              = 262144
+  message_retention_seconds     = 259200
+  visibility_timeout_seconds    = 30
 
-  redrive_policy = jsonencode({
+  fifo_queue                    = true
+  content_based_deduplication   = true
+  delay_seconds                 = 10
+
+  redrive_policy                = jsonencode({
     deadLetterTargetArn = aws_sqs_queue.point_report_dlq_sqs_queue.arn
     maxReceiveCount     = 3
   })
 }
 
 resource "aws_sqs_queue" "point_report_dlq_sqs_queue" {
-  name                      = "${var.point_report_sqs_queue_name}-dlq"
-  delay_seconds             = 0
-  max_message_size          = 262144
-  message_retention_seconds = 1209600
-  visibility_timeout_seconds = 30
+  name                          = "${var.point_report_sqs_queue_name}-dlq"
+  delay_seconds                 = 0
+  max_message_size              = 262144
+  message_retention_seconds     = 1209600
+  visibility_timeout_seconds    = 30
 }
 
 # -- bucket
