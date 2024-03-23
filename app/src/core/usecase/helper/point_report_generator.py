@@ -1,4 +1,4 @@
-import pdfkit
+from weasyprint import HTML
 
 from string import Template
 
@@ -176,22 +176,4 @@ class PointReportGenerator:
 
     @staticmethod
     def __generate_pdf(html_content):
-        options = {
-            'page-size': 'A4',
-            'margin-top': '0.75in',
-            'margin-right': '0.75in',
-            'margin-bottom': '0.75in',
-            'margin-left': '0.75in',
-            'encoding': "UTF-8",
-            'custom-header': [
-                ('Accept-Encoding', 'gzip')
-            ],
-            'no-outline': None
-        }
-
-        output_path = "/report/report.pdf"
-
-        pdfkit.from_file(html_content, output_path, options=options)
-
-        return output_path
-
+        return HTML(string=html_content).write_pdf("report.pdf")
