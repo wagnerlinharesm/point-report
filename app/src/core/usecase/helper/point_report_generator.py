@@ -6,8 +6,7 @@ from string import Template
 class PointReportGenerator:
     @staticmethod
     def generate(worker, points, month, year):
-        html_content = PointReportGenerator.__build_html(worker, points, month, year)
-        return PointReportGenerator.__generate_pdf(html_content)
+        return PointReportGenerator.__build_html(worker, points, month, year)
 
     @staticmethod
     def __build_html(worker, points, month, year):
@@ -194,3 +193,4 @@ class PointReportGenerator:
         pdfkit.from_file(html_content, output_path, options=options)
 
         return output_path
+
