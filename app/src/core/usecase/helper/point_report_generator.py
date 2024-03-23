@@ -1,3 +1,5 @@
+from io import StringIO
+
 import pdfkit
 
 from string import Template
@@ -191,7 +193,7 @@ class PointReportGenerator:
 
         output_path = "/report/report.pdf"
 
-        pdfkit.from_file(html_content, output_path, options=options)
+        pdfkit.from_file(StringIO(html_content), output_path, options=options)
 
         return output_path
 
