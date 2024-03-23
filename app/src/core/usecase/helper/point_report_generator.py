@@ -6,7 +6,8 @@ from string import Template
 class PointReportGenerator:
     @staticmethod
     def generate(worker, points, month, year):
-        return PointReportGenerator.__build_html(worker, points, month, year)
+        html_report = PointReportGenerator.__build_html(worker, points, month, year)
+        return PointReportGenerator.__generate_pdf(html_report)
 
     @staticmethod
     def __build_html(worker, points, month, year):
