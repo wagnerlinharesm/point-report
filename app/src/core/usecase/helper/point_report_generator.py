@@ -1,13 +1,10 @@
-from weasyprint import HTML
-
 from string import Template
 
 
 class PointReportGenerator:
     @staticmethod
     def generate(worker, points, month, year):
-        html_report = PointReportGenerator.__build_html(worker, points, month, year)
-        return PointReportGenerator.__generate_pdf(html_report)
+        return PointReportGenerator.__build_html(worker, points, month, year)
 
     @staticmethod
     def __build_html(worker, points, month, year):
@@ -173,7 +170,3 @@ class PointReportGenerator:
             "end_time": point_period.end_time,
             "work_time": point_period.work_time
         })
-
-    @staticmethod
-    def __generate_pdf(html_content):
-        return HTML(string=html_content).write_pdf("report.pdf")
