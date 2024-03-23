@@ -2,4 +2,3 @@ boto3
 secure-smtplib
 pyjwt
 psycopg2-binary
-reportlab

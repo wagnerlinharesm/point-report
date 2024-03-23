@@ -11,8 +11,8 @@ from app.src.core.usecase.helper.point_report_generator import PointReportGenera
 class PointReportUseCase(metaclass=SingletonMeta):
     _MAIL_TITLE_TEMPLATE = Template("Ponto Eletrônico - Report $month/$year")
     _MAIL_TEXT_TEMPLATE = Template("Segue em anexo report de ponto eletrônico p/ o mês/ano de $month/$year.")
-    _FILE_NAME_TEMPLATE = Template("$year/$month/$username.pdf")
-    _ATTACHMENT_NAME_TEMPLATE = Template("ponto-eletronico-report-$month-$year.pdf")
+    _FILE_NAME_TEMPLATE = Template("$year/$month/$username.html")
+    _ATTACHMENT_NAME_TEMPLATE = Template("ponto-eletronico-report-$month-$year.html")
 
     _worker_adapter = WorkerAdapter()
     _point_adapter = PointAdapter()
@@ -44,7 +44,7 @@ class PointReportUseCase(metaclass=SingletonMeta):
         report = self._storage_adapter.get_file(file_name)
         if report is None:
             print("cache missing.")
-            report = PointReportGenerator.generate_pdf(worker, points, month, year)
+            report = PointReportGenerator.generate(worker, points, month, year)
             self._storage_adapter.save_file(file_name, report)
         else:
             print("cache hit.")
