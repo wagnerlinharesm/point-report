@@ -191,6 +191,6 @@ class PointReportGenerator:
 
         output_path = "/report/report.pdf"
 
-        pdfkit.from_string(html_content, output_path, options=options)
+        pdfkit.from_file(html_content, output_path, options=options)
 
         return output_path
