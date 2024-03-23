@@ -1,22 +1,10 @@
-import asyncio
-from io import BytesIO
-
-from pyppeteer import launch
 from string import Template
 
 
 class PointReportGenerator:
     @staticmethod
     def generate(worker, points, month, year):
-        html = PointReportGenerator.__build_html(worker, points, month, year)
-
-        browser = await launch()
-        page = await browser.newPage()
-        await page.setContent(html)
-        bytes = BytesIO()
-        await page.pdf({'path': bytes, 'format': 'A4'})
-        await browser.close()
-        return bytes.getvalue().decode('iso-8859-1')
+        return PointReportGenerator.__build_html(worker, points, month, year)
 
     @staticmethod
     def __build_html(worker, points, month, year):
